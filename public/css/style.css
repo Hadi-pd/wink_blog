@@ -1,0 +1,15 @@
+body {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+.post {
+    margin: 20px 5px;
+    padding: 5px 20px;
+    border-radius: 15px;
+    background-color: rgb(245, 245, 245);
+    position: relative;
+}
+.post-data {
+    position: absolute;
+    right: 0;
+}
