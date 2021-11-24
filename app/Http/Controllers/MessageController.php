@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Block;
 use App\Models\Message;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,19 +22,15 @@ class MessageController extends Controller
         $validator = $request->validate([
             'message' => 'required|min:5|string',
         ]);
-        
-        // $block = Block::where('blocked_id', Auth::user()->id)->pluck('blocker_id');
-        // dd( property_exists($block, Auth::user()->id));
-
-        // if(!in_array(Auth::user()->id,$block)){
-            $details = Message::create([
-                'sender_id' => $request->sender_id,
-                'receiver_id' => $request->receiver_id,
-                'message' => $request->message,
-            ]);
-            return redirect('dashboard');
-        // }
-        // echo "You Blocked";
+            if ( User::find($request->receiver_id)->isBlocker == null ){
+                $details = Message::create([
+                    'sender_id' => $request->sender_id,
+                    'receiver_id' => $request->receiver_id,
+                    'message' => $request->message,
+                ]);
+                return redirect('dashboard');
+            }
+            echo "You are blocked";
     }
 
     /**

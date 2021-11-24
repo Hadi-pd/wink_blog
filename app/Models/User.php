@@ -68,4 +68,8 @@ class User extends Authenticatable
     public function isUser(){
         return $this->belongsToMany(Role::class)->where('name','user')->exists();
     }
+    public function isBlocker(){
+        return $this->hasOne( Block::class , 'blocker_id', 'id');
+   }
+
 }
